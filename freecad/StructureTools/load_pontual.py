@@ -126,87 +126,6 @@ static char * load_nodal_xpm[] = {
         """
 
 
-# class ViewProviderLoadNodal:
-#     def __init__(self, obj):
-#         obj.Proxy = self
-    
-
-#     def getIcon(self):
-#         return """
-#               /* XPM */
-# static char * load_nodal_xpm[] = {
-# "32 32 36 1",
-# " 	c None",
-# ".	c #110101",
-# "+	c #220303",
-# "@	c #1C0303",
-# "#	c #190303",
-# "$	c #200303",
-# "%	c #FF1919",
-# "&	c #DC1616",
-# "*	c #1A0303",
-# "=	c #1D0303",
-# "-	c #190202",
-# ";	c #DE1616",
-# ">	c #100101",
-# ",	c #160202",
-# "'	c #D11414",
-# ")	c #DD1616",
-# "!	c #E61717",
-# "~	c #790C0C",
-# "{	c #E71717",
-# "]	c #E91717",
-# "^	c #180202",
-# "/	c #5D0A0A",
-# "(	c #5D0909",
-# "_	c #1B0202",
-# ":	c #D51515",
-# "<	c #D81515",
-# "[	c #1A0202",
-# "}	c #420707",
-# "|	c #420606",
-# "1	c #C31313",
-# "2	c #C61313",
-# "3	c #2D0404",
-# "4	c #FE1919",
-# "5	c #2E0404",
-# "6	c #A91010",
-# "7	c #210303",
-# "             .+++@#             ",
-# "             $%%%&$             ",
-# "             $%%%&$             ",
-# "             $%%%&$             ",
-# "             $%%%&$             ",
-# "             $%%%&$             ",
-# "             $%%%&$             ",
-# "             $%%%&$             ",
-# "             $%%%&$             ",
-# "             $%%%&$             ",
-# "             $%%%&$             ",
-# "             $%%%&$             ",
-# "             $%%%&$             ",
-# "             $%%%&$             ",
-# "             $%%%&$             ",
-# "             $%%%&$             ",
-# "             $%%%&$             ",
-# "             $%%%&$             ",
-# "             $%%%&$             ",
-# "             $%%%&$             ",
-# "          *==-%%%;>==*          ",
-# "          ,')!%%%%;)',          ",
-# "           ~%%%%%%%%~           ",
-# "           -{%%%%%%]^           ",
-# "            /%%%%%%(            ",
-# "            _:%%%%<[            ",
-# "             }%%%%|             ",
-# "             #1%%2@             ",
-# "              34%5              ",
-# "              ^66*              ",
-# "               77               ",
-# "                                "};
-#         """
-
-
 class CommandLoadNodal():
     """My new command"""
 
@@ -226,7 +145,6 @@ class CommandLoadNodal():
                     obj = doc.addObject("Part::FeaturePython", "Load_Nodal")
 
                     objLoad = LoadNodal(obj,(selection.Object, subSelectionname))
-                    # ViewProviderLoadNodal(obj.ViewObject)
             
             FreeCAD.ActiveDocument.recompute()
         except:
