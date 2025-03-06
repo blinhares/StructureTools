@@ -77,6 +77,7 @@ def make_arrow(
     return shape
 
 def make_momentum_arrow(height_arrow, radius_cylinder = 2, base_radius_cone=12, height_cone=30, scale=1):
+    #TODO: adicionar limite do tamanho da seta como no make_arrow
     height_cylinder = (height_arrow/1000000) * 30
     cone = make_arrow_point(base_radius_cone, height_cone, scale)
     cone2 = cone.copy()
