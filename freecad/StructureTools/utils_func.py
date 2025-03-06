@@ -1,8 +1,6 @@
 import FreeCAD, Part
 from functools import lru_cache
-
-BASE_ARROWS_DIM = {'radius_cylinder': 2, 'base_radius_cone' : 12, 'height_cone':30,}
-DIST_BET_ARROWS = 30 * 4
+from.config import BASE_ARROWS_DIM, AZUL, VERMELHO, VERDE, FORCE_SCALE
 
 
 def str_dir_to_vet(direction:str):
@@ -42,7 +40,10 @@ def rotate_to_direction(direction:str, obj):
     obj.rotate(*rotate_map.get(direction))
 
 @lru_cache(maxsize=2)
-def make_arrow_point(base_radius, height, scale = 1):
+def make_arrow_point(
+    base_radius=BASE_ARROWS_DIM.get('base_radius_cone'), 
+    height=BASE_ARROWS_DIM.get('height_cone'), 
+    scale = 1):
     """Cria um cone de acordo com as medidas enviadas.
     Possue um cache para as duas primeiras chamadas.
     base_radius - raio base em mm
@@ -51,11 +52,17 @@ def make_arrow_point(base_radius, height, scale = 1):
     """
     return Part.makeCone(0 ,base_radius * scale , height * scale )
 
-def make_arrow(height_arrow, radius_cylinder = 2, base_radius_cone=12, height_cone=30, scale=1):
+
+def make_arrow(
+        height_arrow, 
+        radius_cylinder = BASE_ARROWS_DIM.get('radius_cylinder'), 
+        base_radius_cone=BASE_ARROWS_DIM.get('base_radius_cone'), 
+        height_cone=BASE_ARROWS_DIM.get('height_cone'), 
+        scale=1):
     """Cria uma seta de acordo com as medidas enviadas.
     """
-    height_cylinder = (height_arrow/1000000) * 30
-    cone = make_arrow_point(base_radius_cone, height_cone, scale)
+    height_cylinder = (height_arrow/FORCE_SCALE)
+    cone = make_arrow_point(base_radius_cone,height_cone,scale)
     cylinder = Part.makeCylinder(radius_cylinder * scale , abs(height_cylinder) * scale )        
     cylinder.translate(FreeCAD.Vector(0,0, height_cone * scale ))
     shape = Part.makeCompound([cone, cylinder])
@@ -82,34 +89,14 @@ def set_obj_appear(obj, option=0):
     option - > int
     0 to blue
     1 to red
+    2 to gree
     """
     if option == 0:
-        material = {
-                    'DiffuseColor':(0.00,0.00,1.00),
-                    'AmbientColor':(0.33,0.33,0.33),
-                    'SpecularColor':(0.53,0.53,0.53),
-                    'EmissiveColor':(0.00,0.00,0.00),
-                    'Shininess':(0.90),
-                    'Transparency':(0.00),
-                    }
+        material = AZUL
     if option == 1:
-        material = {
-                    'DiffuseColor':(1.00,0.00,0.00),
-                    'AmbientColor':(0.33,0.33,0.33),
-                    'SpecularColor':(0.53,0.53,0.53),
-                    'EmissiveColor':(0.00,0.00,0.00),
-                    'Shininess':(0.90),
-                    'Transparency':(0.00),
-                    }
+        material = VERMELHO
     if option == 2:
-        material = {
-                    'DiffuseColor':(0.00,1.00,0.00),
-                    'AmbientColor':(0.33,0.33,0.33),
-                    'SpecularColor':(0.53,0.53,0.53),
-                    'EmissiveColor':(0.00,0.00,0.00),
-                    'Shininess':(0.90),
-                    'Transparency':(0.00),
-                    }
+        material = VERDE
         
     obj.ViewObject.ShapeAppearance = (
                 FreeCAD.Material(**material))

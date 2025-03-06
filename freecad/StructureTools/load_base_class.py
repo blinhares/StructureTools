@@ -1,5 +1,5 @@
 import FreeCAD, Part
-from .utils_func import rotate_to_direction, make_arrow, set_obj_appear, DIST_BET_ARROWS
+from .utils_func import rotate_to_direction, make_arrow, set_obj_appear
 
 
 
@@ -14,7 +14,6 @@ class LoadBaseClass:
         obj.GlobalDirection = ['+X','-X', '+Y','-Y', '+Z','-Z']
         obj.GlobalDirection = '-Z'
 
-        self.dist_bet_arrows = DIST_BET_ARROWS
         self.base_value = 10000000
 
     # Retorna o subelemento asociado

@@ -1,7 +1,8 @@
 import FreeCAD, App, FreeCADGui, Part, os
 from PySide2 import QtWidgets
 from .load_base_class import LoadBaseClass
-from .utils_func import rotate_to_direction, make_arrow, set_obj_appear, BASE_ARROWS_DIM
+from .utils_func import rotate_to_direction, make_arrow, set_obj_appear
+from .config import DIST_BET_ARROWS, FORCE_SCALE
 
 ICONPATH = os.path.join(os.path.dirname(__file__), "resources")
 
@@ -39,9 +40,10 @@ class LoadDistributed(LoadBaseClass):
             
         
         #calcula o numero de setas com base no tamanho padrao da seta
-        n_arrow = int( (obj.FinalLoadAt-obj.InitialLoadAt) / (obj.ScaleDraw * self.dist_bet_arrows) )
+        n_arrow = int( (obj.FinalLoadAt-obj.InitialLoadAt) / (obj.ScaleDraw * DIST_BET_ARROWS) )
         dist_bet_arrows = (obj.FinalLoadAt-obj.InitialLoadAt)/n_arrow #recalcula distancias
         if n_arrow < 3:
+            #TODO verificar se erro das setas em essesso em barras pequenas vem daqui
             n_arrow = 3
         
         # gera a lista de setas já em suas devidas escalas e nas devidas distancia posicionadas sobre o eixo X
@@ -54,7 +56,7 @@ class LoadDistributed(LoadBaseClass):
             if load.Value == 0:
                 load = load + escala
                 continue
-            arrow = make_arrow(load.Value,**BASE_ARROWS_DIM, scale=obj.ScaleDraw)
+            arrow = make_arrow(height_arrow=load.Value, scale=obj.ScaleDraw)
             load = load + escala
             
             rotate_to_direction(obj.GlobalDirection, arrow)
