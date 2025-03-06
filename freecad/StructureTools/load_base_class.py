@@ -6,6 +6,7 @@ from .utils_func import rotate_to_direction, make_arrow, set_obj_appear
 class LoadBaseClass:
     def __init__(self, obj, selection):
         obj.Proxy = self
+        obj.ViewObject.Proxy= self
         obj.addProperty("App::PropertyLinkSubList", "ObjectBase", "Base", "Object base")
         obj.addProperty("App::PropertyFloat", "ScaleDraw", "Load", "Scale from drawing").ScaleDraw = 1
         obj.addProperty("App::PropertyEnumeration", "GlobalDirection","Load","Global direction load")
