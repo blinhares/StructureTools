@@ -2,7 +2,7 @@ import FreeCAD, App, FreeCADGui, Part, os
 from PySide2 import QtWidgets
 from .load_base_class import LoadBaseClass
 from .utils_func import rotate_to_direction, make_arrow, set_obj_appear
-from .config import DIST_BET_ARROWS, FORCE_SCALE
+from .config import DIST_BET_ARROWS, BASE_ARROWS_DIM, FORCE_SCALE
 
 ICONPATH = os.path.join(os.path.dirname(__file__), "resources")
 
@@ -52,8 +52,8 @@ class LoadDistributed(LoadBaseClass):
         load = obj.InitialLoading
 
         for coordinades in self.get_arrow_coordinades(n_arrow,subelement, obj.InitialLoadAt, dist_bet_arrows):
-            
-            if load.Value == 0:
+            #nao desenha setas menores que altura da seta
+            if abs(load.Value) <= FORCE_SCALE * BASE_ARROWS_DIM.get('height_cone'): 
                 load = load + escala
                 continue
             arrow = make_arrow(height_arrow=load.Value, scale=obj.ScaleDraw)

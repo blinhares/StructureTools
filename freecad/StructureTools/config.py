@@ -6,7 +6,7 @@ BASE_ARROWS_DIM = {
     }
 #distancia entre setas
 DIST_BET_ARROWS = 30 * 8 
-FORCE_SCALE = 100000 
+FORCE_SCALE = 100000/5
 ## ARROWS CONFIG ##
 
 # Propriedades dos Materiais Setas
@@ -19,18 +19,18 @@ AZUL = {
         'Transparency':(0.00),
         }
 VERMELHO = {
-            'DiffuseColor':(1.00,0.00,0.00),
-            'AmbientColor':(0.33,0.33,0.33),
-            'SpecularColor':(0.53,0.53,0.53),
-            'EmissiveColor':(0.00,0.00,0.00),
-            'Shininess':(0.90),
-            'Transparency':(0.00),
-            }
+        'DiffuseColor':(1.00,0.00,0.00),
+        'AmbientColor':(0.33,0.33,0.33),
+        'SpecularColor':(0.53,0.53,0.53),
+        'EmissiveColor':(0.00,0.00,0.00),
+        'Shininess':(0.90),
+        'Transparency':(0.00),
+        }
 VERDE = {
-            'DiffuseColor':(0.00,1.00,0.00),
-            'AmbientColor':(0.33,0.33,0.33),
-            'SpecularColor':(0.53,0.53,0.53),
-            'EmissiveColor':(0.00,0.00,0.00),
-            'Shininess':(0.90),
-            'Transparency':(0.00),
-            }
+        'DiffuseColor':(0.00,1.00,0.00),
+        'AmbientColor':(0.33,0.33,0.33),
+        'SpecularColor':(0.53,0.53,0.53),
+        'EmissiveColor':(0.00,0.00,0.00),
+        'Shininess':(0.90),
+        'Transparency':(0.00),
+        }
