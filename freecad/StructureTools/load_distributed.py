@@ -52,15 +52,12 @@ class LoadDistributed(LoadBaseClass):
         load = obj.InitialLoading
 
         for coordinades in self.get_arrow_coordinades(n_arrow,subelement, obj.InitialLoadAt, dist_bet_arrows):
-            #nao desenha setas menores que altura da seta
-            if abs(load.Value) <= FORCE_SCALE * BASE_ARROWS_DIM.get('height_cone'): 
-                load = load + escala
-                continue
             arrow = make_arrow(height_arrow=load.Value, scale=obj.ScaleDraw)
             load = load + escala
+            if arrow == None:
+                continue
             
             rotate_to_direction(obj.GlobalDirection, arrow)
-                            
             arrow.translate(coordinades)
             list_of_arrows.append(arrow)
 

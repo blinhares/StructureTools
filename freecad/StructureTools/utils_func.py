@@ -60,14 +60,14 @@ def make_arrow(
         height_cone=BASE_ARROWS_DIM.get('height_cone'), 
         scale=1):
     """Cria uma seta de acordo com as medidas enviadas.
+    Caso a seta tenha tamanho menor (em modulo) que a altura da seta, a função retorna None
     """
     height_cylinder = abs(height_arrow/FORCE_SCALE)
     cone = make_arrow_point(base_radius_cone,height_cone,scale)
     if height_cone > height_cylinder:
-        height_cylinder=0
+        return
     else:
         height_cylinder = height_cylinder - height_cone
-    
     
     cylinder = Part.makeCylinder(radius_cylinder * scale , height_cylinder * scale )        
     cylinder.translate(FreeCAD.Vector(0,0, height_cone * scale ))
