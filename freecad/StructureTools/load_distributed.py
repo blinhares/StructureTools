@@ -63,13 +63,20 @@ class LoadDistributed(LoadBaseClass):
 
         shape = Part.makeCompound(list_of_arrows)
         shape.translate(subelement.Vertexes[0].Point)
-        set_obj_appear(obj)
         obj.Label = 'Distributed load'
-
         obj.Placement = shape.Placement
         obj.Shape = shape
+        #TODO ver de jogar isso para a classe VIEWPROVIDER
+        set_obj_appear(obj)
         obj.ViewObject.DisplayMode = 'Shaded'
     
+class ViewProviderLoadDistributed:
+    #TODO review documentation
+    #doc https://wiki.freecad.org/Scripted_objects
+
+    def __init__(self, obj):
+        obj.Proxy = self
+
     def getIcon(self):
         return """
 /* XPM */
@@ -229,6 +236,7 @@ class CommandLoadDistributed():
                     obj = doc.addObject("Part::FeaturePython", "Load_Distributed")
 
                     objLoad = LoadDistributed(obj,(selection.Object, subSelectionname))
+                    ViewProviderLoadDistributed(obj.ViewObject)
             
             FreeCAD.ActiveDocument.recompute()
         except:

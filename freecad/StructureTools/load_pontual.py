@@ -50,6 +50,12 @@ class LoadNodal(LoadBaseClass):
         obj.Shape = shape
         obj.ViewObject.DisplayMode = 'Shaded'
     
+class ViewProviderLoadPontual:
+    #doc https://wiki.freecad.org/Scripted_objects
+    def __init__(self, obj):
+        obj.Proxy = self
+    
+
     def getIcon(self):
         return """
               /* XPM */
@@ -144,7 +150,9 @@ class CommandLoadNodal():
                     doc = FreeCAD.ActiveDocument
                     obj = doc.addObject("Part::FeaturePython", "Load_Nodal")
 
-                    objLoad = LoadNodal(obj,(selection.Object, subSelectionname))
+                    # objLoad = LoadNodal(obj,(selection.Object, subSelectionname))
+                    LoadNodal(obj,(selection.Object, subSelectionname))
+                    ViewProviderLoadPontual(obj.ViewObject)
             
             FreeCAD.ActiveDocument.recompute()
         except:

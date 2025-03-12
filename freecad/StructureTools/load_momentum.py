@@ -46,7 +46,13 @@ class LoadMomentum(LoadBaseClass):
         obj.Placement = shape.Placement
         obj.Shape = shape
         obj.ViewObject.DisplayMode = 'Shaded'
+
+class ViewProviderLoadMomentum:
+    #doc https://wiki.freecad.org/Scripted_objects
+    def __init__(self, obj):
+        obj.Proxy = self
     
+
     def getIcon(self):
         return """/* XPM */
 static char * load_momentum_2_xpm[] = {
@@ -149,7 +155,9 @@ class CommandLoadMomentum():
                     doc = FreeCAD.ActiveDocument
                     obj = doc.addObject("Part::FeaturePython", "Load_Nodal")
 
-                    objLoad = LoadMomentum(obj,(selection.Object, subSelectionname))
+                    LoadMomentum(obj,(selection.Object, subSelectionname))
+                    ViewProviderLoadMomentum(obj.ViewObject)
+
             
             FreeCAD.ActiveDocument.recompute()
         except:
