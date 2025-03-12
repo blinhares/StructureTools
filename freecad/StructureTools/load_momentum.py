@@ -25,7 +25,7 @@ class LoadMomentum(LoadBaseClass):
         if obj.NodalLoading == 0:
             obj.NodalLoading = self.base_value
 
-        shape = make_momentum_arrow(obj.NodalLoading,**BASE_ARROWS_DIM, scale=obj.ScaleDraw)
+        shape = make_momentum_arrow(obj.NodalLoading.Value,**BASE_ARROWS_DIM, scale=obj.ScaleDraw)
         rotate_to_direction(obj.GlobalDirection, shape)
         shape.translate(subelement.Vertexes[0].Point)
         set_obj_appear(obj,2)

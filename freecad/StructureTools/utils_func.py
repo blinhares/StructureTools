@@ -63,12 +63,10 @@ def make_arrow(
     Caso a seta tenha tamanho menor (em modulo) que a altura da seta, a função retorna None
     """
     height_cylinder = abs(height_arrow/FORCE_SCALE)
-    cone = make_arrow_point(base_radius_cone,height_cone,scale)
     if height_cone > height_cylinder:
         return
-    else:
-        height_cylinder = height_cylinder - height_cone
-    
+    cone = make_arrow_point(base_radius_cone,height_cone,scale)
+    height_cylinder = height_cylinder - height_cone
     cylinder = Part.makeCylinder(radius_cylinder * scale , height_cylinder * scale )        
     cylinder.translate(FreeCAD.Vector(0,0, height_cone * scale ))
     shape = Part.makeCompound([cone, cylinder])
@@ -76,13 +74,19 @@ def make_arrow(
         rotate_to_direction('+Z',shape)
     return shape
 
-def make_momentum_arrow(height_arrow, radius_cylinder = 2, base_radius_cone=12, height_cone=30, scale=1):
-    #TODO: adicionar limite do tamanho da seta como no make_arrow
-    height_cylinder = (height_arrow/1000000) * 30
+def make_momentum_arrow(
+        height_arrow, 
+        radius_cylinder = BASE_ARROWS_DIM.get('radius_cylinder'), 
+        base_radius_cone=BASE_ARROWS_DIM.get('base_radius_cone'), 
+        height_cone=BASE_ARROWS_DIM.get('height_cone'), 
+        scale=1):
+    height_cylinder = abs(height_arrow/FORCE_SCALE)
+    if (2*height_cone) > height_cylinder:
+        return
     cone = make_arrow_point(base_radius_cone, height_cone, scale)
     cone2 = cone.copy()
     cone2.translate(FreeCAD.Vector(0,0, height_cone * scale ))
-
+    height_cylinder = height_cylinder - 2 * height_cone
     cylinder = Part.makeCylinder(radius_cylinder * scale , abs(height_cylinder) * scale )        
     cylinder.translate(FreeCAD.Vector(0,0, height_cone * 2 * scale ))
     shape = Part.makeCompound([cone,cone2, cylinder])
